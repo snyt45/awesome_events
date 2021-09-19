@@ -1,37 +1,28 @@
-# perfect-rails-docker
-## 使い方
+# awesome_events
+パーフェクトRailsの6章以降で作成するawesome_eventsのリポジトリ
 
+## ビルド
 ```
-# イメージ作成
-docker build . -t perfect-rails --build-arg ruby_version=2.6.3 --build-arg rails_version=6.0.1
+# awesome_eventsという名前のイメージ作成
+docker build . -t awesome_events --build-arg ruby_version=2.6.3 --build-arg rails_version=6.0.1
 
-# コンテナ起動
-# fish
-docker run -d -t -v (pwd):/app -p 3000:3000 --name="perfect-rails" perfect-rails
+# awesome_eventsという名前のネットワーク作成
+docker network create awesome_events
 
-# プロジェクト作成、サーバー起動
-docker exec -it perfect-rails /bin/bash
-rails new sample_app_1
-cd sample_app_1
+# awesome_eventsのネットワーク内にawesome_eventsというコンテナを作成
+docker run --network awesome_events -d -t -v (pwd):/app -p 3000:3000 --name="awesome_events" awesome_events
+
+# プロジェクト作成
+docker exec -it awesome_events /bin/bash
+rails new awesome_events --skip-action-mailer --skip-action-mailbox --skip-action-text --skip-action-cable
+
+# サーバー起動
+cd awesome_events
 rails s -p 3000 -b '0.0.0.0'
+```
 
 # コンテナ停止、起動
-docker stop perfect-rails
-docker start perfect-rails
 ```
-
-## 複数のコンテナを意識した場合のコンテナ作成方法
-
-```
-# イメージ作成
-docker build . -t perfect-rails --build-arg ruby_version=2.6.3 --build-arg rails_version=6.0.1
-
-# ネットワーク作成
-docker network create perfect-rails
-
-# コンテナ起動
-# fish
-docker run --network perfect-rails -d -t -v (pwd):/app -p 3000:3000 --name="perfect-rails" perfect-rails
-
-# 他のコンテナ起動時にも--network perfect-railを指定する
+docker stop awesome_events
+docker start awesome_events
 ```
