@@ -10,7 +10,7 @@ class Event < ApplicationRecord
   validate :start_at_should_be_before_end_at
 
   def creaeted_by?(user)
-    retrun false unless user
+    return false unless user
     owner_id == user.id
   end
 
