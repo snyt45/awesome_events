@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :user, aliases: [:owener] do
+  factory :user, aliases: [:owner] do
     provider { "github" }
     sequence(:uid) { |i| "uid#{i}" }
     sequence(:name) { |i| "name#{i}" }
