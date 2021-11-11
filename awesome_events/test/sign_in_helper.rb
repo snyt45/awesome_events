@@ -25,6 +25,6 @@ module SignInHelper
 end
 
 
-class ActionDispathch::IntegrationTest
+class ActionDispatch::IntegrationTest
   include SignInHelper
 end
