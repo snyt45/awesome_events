@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  searchkick language: "japanese"
+
   attr_accessor :remove_image
 
   before_save :remove_image_if_user_accept
@@ -21,6 +23,16 @@ class Event < ApplicationRecord
   def creaeted_by?(user)
     return false unless user
     owner_id == user.id
+  end
+
+  def search_data
+    {
+      name: name,
+      place: place,
+      content: content,
+      owner_name: owner&.name,
+      start_at: start_at
+    }
   end
 
   private
